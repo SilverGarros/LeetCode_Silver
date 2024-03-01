@@ -42,13 +42,18 @@ Example 3:
 ## **Follow-up/进阶**: 
 
 Can you come up with an algorithm that is less than O(n2) time complexity?
-想出一个时间复杂度小于 `O(n2)` 的算法吗？
+想出一个时间复杂度小于 `O(n2)` 的算法
 
 ## Solution/解法:
 
-1.穷举法
+#### 1.暴力穷举法
 
-#### Python
+###### 复杂度分析
+
+- 时间复杂度：O(N^2)，其中 NN*N* 是数组中的元素数量。最坏情况下数组中任意两个数都要被匹配一次。
+- 空间复杂度：O(1)
+
+###### Python
 
 ``` python
 class Solution:
@@ -60,4 +65,34 @@ class Solution:
                     return [i, j]
 ```
 
-C++
+###### C++
+
+``` C++
+public:vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                if (nums[i] + nums[j] == target) {
+                    return { i, j };
+                }
+            }
+        }
+        return {};
+    }
+};
+```
+
+#### 2.散列表哈希表法
+
+> #### **哈希表HashTable**
+>
+> 散列表（Hash table，也叫哈希表），**是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做哈希函数，存放记录的数组称做哈希表**
+
+> #### 常见的哈希函数
+>
+> 一个哈希函数的好不好，取决于以下三点
+>
+> - 哈希函数的定义域必须包括需要存储的全部关键码，而如果哈希表允许有m个地址时，其值域必须在0 到m-1之间
+> - 哈希函数计算出来的地址能均匀分布在整个空间中
+> - 哈希函数应该比较简单
+
