@@ -96,3 +96,42 @@ public:vector<int> twoSum(vector<int>& nums, int target) {
 > - 哈希函数计算出来的地址能均匀分布在整个空间中
 > - 哈希函数应该比较简单
 
+###### python
+
+``` python
+class Solution2:
+    @staticmethod
+    def twoSum(nums: List[int], target: int) -> List[int]:
+        hashtable = dict() # 建立hash表
+        for i, num in enumerate(nums):
+            if target - num in hashtable:
+                return [hashtable[target - num], i]
+            hashtable[nums[i]] = i
+        return [-1,-1]
+```
+
+###### C++
+
+``` C++
+class Solution2 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> a; //建立hash表a存放数组元素
+        vector<int> b(2, -1); //建立数组b存放结果
+        for (int i = 0; i < nums.size(); i++)
+            a.insert(map<int, int>::value_type(nums[i], i));
+            // a[nums[i]] = i;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (a.count(target - nums[i]) > 0 && (a[target - nums[i]] != i))
+            {
+                b[0] = i;
+                b[1] = a[target - nums[i]];
+                break;
+            }          
+        }
+        return b;
+    };
+};
+```
+

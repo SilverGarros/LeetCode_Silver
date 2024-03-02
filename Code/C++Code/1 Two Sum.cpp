@@ -1,9 +1,10 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
+#include <map>
 
 using namespace std;
-
-class Solution {
+//Solution1 æš´åŠ›ç©·ä¸¾æ³•
+class Solution1 {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
         int n = nums.size();
@@ -17,22 +18,44 @@ public:
         return {};
     }
 };
+//Solution2 å“ˆå¸Œè¡¨HashTableæ³•
+class Solution2 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> a; //å»ºç«‹hashè¡¨aå­˜æ”¾æ•°ç»„å…ƒç´ 
+        vector<int> b(2, -1); //å»ºç«‹æ•°ç»„bå­˜æ”¾ç»“æœ
+        for (int i = 0; i < nums.size(); i++)
+            a.insert(map<int, int>::value_type(nums[i], i));
+            // a[nums[i]] = i;
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (a.count(target - nums[i]) > 0 && (a[target - nums[i]] != i))
+            {
+                b[0] = i;
+                b[1] = a[target - nums[i]];
+                break;
+            }          
+        }
+        return b;
+    };
+};
 
-    int main() {
-        // ´´½¨ Solution ÀàµÄÒ»¸öÊµÀı
-        Solution solution;
+int main() {
+    // åˆ›å»º Solution ç±»çš„ä¸€ä¸ªå®ä¾‹
+    Solution1 solution1;
+    Solution2 solution2;
 
-        // ´´½¨Ò»¸öÕûÊıÏòÁ¿ nums£¬²¢³õÊ¼»¯Ëü
-        vector<int> nums = { 2, 7, 11, 15 };
+    // åˆ›å»ºä¸€ä¸ªæ•´æ•°å‘é‡ numsï¼Œå¹¶åˆå§‹åŒ–å®ƒ
+    vector<int> nums = {3,2,4};
 
-        // ÉèÖÃÄ¿±êÕûÊı target
-        int target = 9;
+    // è®¾ç½®ç›®æ ‡æ•´æ•° target
+    int target = 6;
 
-        // µ÷ÓÃ twoSum ·½·¨£¬²¢´«Èë nums ºÍ target ×÷Îª²ÎÊı
-        vector<int> result = solution.twoSum(nums, target);
+    // è°ƒç”¨ twoSum æ–¹æ³•ï¼Œå¹¶ä¼ å…¥ nums å’Œ target ä½œä¸ºå‚æ•°
+    vector<int> hash,result = solution2.twoSum(nums, target);
 
-        // ´òÓ¡½á¹û
-        cout << "[" << result[0] << ", " << result[1] << "]" << endl;
+    // æ‰“å°ç»“æœ
+    cout << "[" << result[0] << ", " << result[1] << "]" << endl;
 
-        return 0;
-    }
+    return 0;
+}
